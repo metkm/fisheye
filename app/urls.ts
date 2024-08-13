@@ -1,9 +1,10 @@
 import { BoxGeometry, MeshBasicMaterial, Mesh, TextureLoader, SRGBColorSpace } from "three";
+import { IMAGE_HEIGHT, IMAGE_WIDTH } from "./constants";
 
 const textureLoader = new TextureLoader();
 
 export const createImageMesh = async (uri: string) => {
-  const geometry = new BoxGeometry(6, 3, 0);
+  const geometry = new BoxGeometry(IMAGE_WIDTH, IMAGE_HEIGHT, 0);
   const material = new MeshBasicMaterial();
   const songCover = new Mesh(geometry, material);
 

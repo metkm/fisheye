@@ -2,6 +2,7 @@
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { createImageMesh, images } from "./urls";
 import { init } from "./init";
+import { IMAGE_HEIGHT, IMAGE_WIDTH } from "./constants";
 
 const { composer, camera, renderer, scene } = init();
 
@@ -14,7 +15,7 @@ Promise.all(images.map((image) => createImageMesh(image))).then((cubes) => {
     if (!cube) continue;
 
     if (index % 4 === 0) {
-      offsety -= 3;
+      offsety -= IMAGE_HEIGHT;
       offsetx = 0;
     }
 
@@ -22,20 +23,24 @@ Promise.all(images.map((image) => createImageMesh(image))).then((cubes) => {
     cube.position.y = offsety;
     
     scene.add(cube);
-    offsetx += 6;
+    offsetx += IMAGE_WIDTH;
   }
 });
 
 const controls = new OrbitControls(camera, renderer.domElement);
 const animate = () => {
   controls.update();
-  // renderer.render(scene, camera);
   composer.render();
   camera.updateProjectionMatrix();
 };
 
 renderer.setAnimationLoop(animate);
 
+useEventListener("resize", () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.updateProjectionMatrix();
+  camera.aspect = window.innerWidth / window.innerHeight;
+})
 </script>
 
 <template>

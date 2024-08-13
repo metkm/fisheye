@@ -41,7 +41,7 @@ export const init = () => {
 
   const composer = initComposer(renderer, scene, camera);
 
-  camera.position.z = 2;
+  camera.position.z = 5;
   document.body.appendChild(renderer.domElement);
 
   renderer.setSize(window.innerWidth, window.innerHeight);
