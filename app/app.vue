@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BoxHelper } from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { createImageMesh, images } from "./urls";
 import { init } from "./init";
@@ -25,11 +24,6 @@ Promise.all(images.map((image) => createImageMesh(image))).then((cubes) => {
     scene.add(cube);
     offsetx += 6;
   }
-
-  const firstBox = cubes[0]!;
-  const box = new BoxHelper(firstBox, 0xffff00);
-
-  scene.add(box)
 });
 
 const controls = new OrbitControls(camera, renderer.domElement);
