@@ -7,7 +7,9 @@ import { init } from "./init";
 
 const { composer, camera, renderer, scene } = init();
 
-Promise.all(images.map((image) => createImageMesh(image))).then((cubes) => {
+const filledArray = fillArray(images, 50);
+
+Promise.all(filledArray.map((image) => createImageMesh(image))).then((cubes) => {
   const offsetInitial = -((MAX_PER_LINE / 2) * IMAGE_WIDTH) + (IMAGE_WIDTH / 2)
   const lineCount = Math.ceil(images.length / MAX_PER_LINE);
 
