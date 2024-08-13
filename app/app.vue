@@ -2,21 +2,26 @@
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { createImageMesh, images } from "./urls";
 import { init } from "./init";
-import { IMAGE_HEIGHT, IMAGE_WIDTH } from "./constants";
+import { IMAGE_HEIGHT, IMAGE_WIDTH, MAX_PER_LINE } from "./constants";
+import { AxesHelper } from "three";
 
 const { composer, camera, renderer, scene } = init();
 
 Promise.all(images.map((image) => createImageMesh(image))).then((cubes) => {
-  let offsetx = 0;
-  let offsety = 5;
+  let offsetInitial = -((MAX_PER_LINE / 2) * IMAGE_WIDTH) + (IMAGE_WIDTH / 2)
+
+  let offsetx = offsetInitial;
+  let offsety = -(Math.floor(images.length / MAX_PER_LINE) * IMAGE_HEIGHT) + (IMAGE_HEIGHT / 2);
+
+  console.log(offsety)
 
   for (let index = 0; index < cubes.length; index++) {
     const cube = cubes[index];
     if (!cube) continue;
 
-    if (index % 4 === 0) {
-      offsety -= IMAGE_HEIGHT;
-      offsetx = 0;
+    if (index % MAX_PER_LINE === 0) {
+      offsety += IMAGE_HEIGHT;
+      offsetx = offsetInitial;
     }
 
     cube.position.x = offsetx;
@@ -33,6 +38,9 @@ const animate = () => {
   composer.render();
   camera.updateProjectionMatrix();
 };
+
+const helper = new AxesHelper();
+scene.add(helper)
 
 renderer.setAnimationLoop(animate);
 
