@@ -7,7 +7,6 @@ import { init } from "~/init";
 const { composer, camera, renderer, scene } = init();
 
 const filledArray = fillArray(images, 60);
-// const group = new Group();
 const groups = [new Group()];
 
 const cubes = await Promise.all(
@@ -51,53 +50,34 @@ const getLastGroup = () => {
 
   return {
     size,
-    group: lastGroup
-  }
-}
+    group: lastGroup,
+  };
+};
 
-// const controls = new OrbitControls(camera, renderer.domElement);
 const helper = new AxesHelper();
-// const box = new Box3().setFromObject(group);
-
-// const size = new Vector3();
-// box.getSize(size);
-// const size = box.getSize(new Vector3());
 
 const animate = () => {
-  // const direction = camera.getWorldDirection(new Vector3());
   camera.position.x += 0.1;
 
   const result = getLastGroup();
+  const groupEndPoint = result
+    ? result.size.x + result.group.position.x - result.size.x / 2
+    : -1;
 
-  if (result && camera.position.x > (result.size.x / 2)) {
+  if (result && camera.position.x > groupEndPoint - (result.size.x / 4)) {
     const newGroup = result.group.clone();
     newGroup.position.x = result.size.x + result.group.position.x;
 
-    console.log(newGroup.position.x)
+    if (groups.length > 2) {
+      const firstGroup = groups.shift();
+      if (firstGroup) {
+        scene.remove(firstGroup);
+      }
+    }
 
     scene.add(newGroup);
     groups.push(newGroup);
   }
-
-  // if (result?.size && camera.position.x > result.size.x / 2) {
-  //   const newGroup = result.group.clone();
-  //   newGroup.position.x = result.size.x;
-
-  //   scene.add(newGroup);
-  //   groups.push(newGroup);
-
-  //   console.log("added new group", result.size.x)
-
-  //   if (groups.length > 2) {
-  //     const firstGroup = groups.shift();
-
-  //     firstGroup?.children.forEach(child => {
-  //       scene.remove(child);
-  //     })
-
-  //     console.log("removing first group")
-  //   }
-  // }
 
   composer.render();
   camera.updateProjectionMatrix();
