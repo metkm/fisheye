@@ -9,8 +9,20 @@ export const createImageMesh = async (uri: string) => {
   const songCover = new Mesh(geometry, material);
 
   const texture = await textureLoader.loadAsync(uri);
+  texture.needsUpdate = true;
   texture.colorSpace = SRGBColorSpace;
+
   songCover.material.map = texture;
+  songCover.scale.set(1.0, 1, 1.0);
+
+  const imageAspect = texture.image.width / texture.image.height;
+  const boxAspect = IMAGE_WIDTH / IMAGE_HEIGHT;
+
+  // if (boxAspect < imageAspect) {
+  //   texture.matrix.setUvTransform(0, 0, boxAspect / imageAspect, 1, 0, 0.5, 0.5);
+  // } else {
+  //   texture.matrix.setUvTransform( 0, 0, 1, imageAspect / boxAspect, 0, 0.5, 0.5 );
+  // }
 
   return songCover;
 }

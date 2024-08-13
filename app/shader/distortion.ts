@@ -7,7 +7,6 @@ export const getDistortionShaderDefinition = () => {
       "aspectRatio": { type: "f", value: 1 },
       "cylindricalRatio": { type: "f", value: 1 }
     },
-
     vertexShader: [
       "uniform float strength;",          // s: 0 = perspective, 1 = stereographic
       "uniform float height;",            // h: tan(verticalFOVInRadians / 2)
