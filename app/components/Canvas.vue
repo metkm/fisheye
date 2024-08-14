@@ -57,7 +57,7 @@ const getLastGroup = () => {
 const helper = new AxesHelper();
 
 const animate = () => {
-  camera.position.x += 0.1;
+  camera.position.x += 0.01;
 
   const result = getLastGroup();
   const groupEndPoint = result
@@ -80,6 +80,7 @@ const animate = () => {
   }
 
   composer.render();
+  // renderer.render(scene, camera);
   camera.updateProjectionMatrix();
 };
 

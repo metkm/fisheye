@@ -1,7 +1,17 @@
-import { BoxGeometry, MeshBasicMaterial, Mesh, TextureLoader, SRGBColorSpace } from "three";
+import { BoxGeometry, MeshBasicMaterial, Mesh, TextureLoader, SRGBColorSpace, NearestFilter, Texture } from "three";
 import { IMAGE_HEIGHT, IMAGE_WIDTH } from "./constants";
 
 const textureLoader = new TextureLoader();
+
+function cover(texture: Texture, aspect: number) {
+  const imageAspect = texture.image.width / texture.image.height;
+
+  if (aspect < imageAspect) {
+    texture.matrix.setUvTransform(0, 0, aspect / imageAspect, 1, 0, 0.5, 0.5);
+  } else {
+    texture.matrix.setUvTransform(0, 0, 1, imageAspect / aspect, 0, 0.5, 0.5);
+  }
+}
 
 export const createImageMesh = async (uri: string) => {
   const geometry = new BoxGeometry(IMAGE_WIDTH, IMAGE_HEIGHT, 0);
@@ -9,20 +19,13 @@ export const createImageMesh = async (uri: string) => {
   const songCover = new Mesh(geometry, material);
 
   const texture = await textureLoader.loadAsync(uri);
+
   texture.needsUpdate = true;
+  texture.matrixAutoUpdate = false;
   texture.colorSpace = SRGBColorSpace;
 
+  cover(texture, IMAGE_WIDTH / IMAGE_HEIGHT)
   songCover.material.map = texture;
-  songCover.scale.set(1.0, 1, 1.0);
-
-  const imageAspect = texture.image.width / texture.image.height;
-  const boxAspect = IMAGE_WIDTH / IMAGE_HEIGHT;
-
-  // if (boxAspect < imageAspect) {
-  //   texture.matrix.setUvTransform(0, 0, boxAspect / imageAspect, 1, 0, 0.5, 0.5);
-  // } else {
-  //   texture.matrix.setUvTransform( 0, 0, 1, imageAspect / boxAspect, 0, 0.5, 0.5 );
-  // }
 
   return songCover;
 }

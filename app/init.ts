@@ -31,7 +31,9 @@ export const initComposer = (renderer: WebGLRenderer, scene: Scene, camera: Pers
 
 export const init = () => {
   const scene = new Scene();
-  const renderer = new WebGLRenderer();
+  const renderer = new WebGLRenderer({
+    antialias: true,
+  });
   const camera = new PerspectiveCamera(
     100,
     window.innerWidth / window.innerHeight,
@@ -41,11 +43,13 @@ export const init = () => {
 
   const composer = initComposer(renderer, scene, camera);
 
-  camera.position.z = 5;
+  camera.position.z = 20;
   document.body.appendChild(renderer.domElement);
 
   renderer.setSize(window.innerWidth, window.innerHeight);
   composer.setSize(window.innerWidth, window.innerHeight);
+  composer.setPixelRatio(window.devicePixelRatio);
+  renderer.setPixelRatio(window.devicePixelRatio);
 
   return {
     scene,
