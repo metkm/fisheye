@@ -35,7 +35,7 @@ export const init = () => {
     antialias: true,
   });
   const camera = new PerspectiveCamera(
-    100,
+    80,
     window.innerWidth / window.innerHeight,
     1,
     1000000
@@ -43,7 +43,7 @@ export const init = () => {
 
   const composer = initComposer(renderer, scene, camera);
 
-  camera.position.z = 20;
+  camera.position.z = 10;
   document.body.appendChild(renderer.domElement);
 
   renderer.setSize(window.innerWidth, window.innerHeight);

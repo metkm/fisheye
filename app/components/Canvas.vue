@@ -64,7 +64,7 @@ const animate = () => {
     ? result.size.x + result.group.position.x - result.size.x / 2
     : -1;
 
-  if (result && camera.position.x > groupEndPoint - (result.size.x / 4)) {
+  if (result && camera.position.x > groupEndPoint - (result.size.x / 2)) {
     const newGroup = result.group.clone();
     newGroup.position.x = result.size.x + result.group.position.x;
 
