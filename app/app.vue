@@ -1,9 +1,7 @@
 <template>
   <Suspense>
     <div>
-      <Teleport to="body">
-        <div class="crt" />
-      </Teleport>
+      <div class="crt" />
       <Canvas />
     </div>
 
@@ -20,14 +18,24 @@ html {
   padding: 0;
 }
 
+.crt::before {
+  display: block;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent, black 90%);
+  z-index: 2;
+}
+
 .crt {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 50;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+  z-index: 1;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
     linear-gradient(
       90deg,
       rgba(255, 0, 0, 0.06),
