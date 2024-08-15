@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AxesHelper, PerspectiveCamera, Scene } from "three";
+import { PerspectiveCamera, Scene } from "three";
 import type { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import {
   createGroupBuffer,
@@ -41,9 +41,7 @@ const animate = (
 
 onMounted(async () => {
   const { composer, camera, renderer, scene } = init(canvasElement);
-  const helper = new AxesHelper();
 
-  scene.add(helper);
   scene.add(groups[0]!);
   renderer.setAnimationLoop(() => {
     animate(camera, scene, composer);
