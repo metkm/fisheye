@@ -13,9 +13,11 @@
 
 <style>
 body,
-html {
+html,
+#__nuxt {
   margin: 0;
   padding: 0;
+  height: 100vh;
 }
 
 .crt::before {
@@ -43,5 +45,9 @@ html {
       rgba(0, 0, 255, 0.06)
     );
   background-size: 100% 8px, 12px 100%;
+}
+
+canvas {
+  display: block;
 }
 </style>

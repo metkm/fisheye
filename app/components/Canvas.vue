@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { AxesHelper } from "three";
+import { AxesHelper, PerspectiveCamera, Scene } from "three";
+import type { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import {
   createGroupBuffer,
   getLastGroupFromBuffer,
@@ -7,12 +8,14 @@ import {
 } from "~/buffer";
 import { init } from "~/init";
 
-const { composer, camera, renderer, scene } = init();
+const canvasElement = ref<HTMLCanvasElement>();
 const groups = await createGroupBuffer();
 
-const helper = new AxesHelper();
-
-const animate = () => {
+const animate = (
+  camera: PerspectiveCamera,
+  scene: Scene,
+  composer: EffectComposer
+) => {
   camera.position.x += 0.01;
 
   const lastGroup = getLastGroupFromBuffer(groups);
@@ -36,17 +39,26 @@ const animate = () => {
   camera.updateProjectionMatrix();
 };
 
-scene.add(helper);
-scene.add(groups[0]!);
-renderer.setAnimationLoop(animate);
+onMounted(async () => {
+  console.log(window.innerHeight)
 
-useEventListener("resize", () => {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.updateProjectionMatrix();
-  camera.aspect = window.innerWidth / window.innerHeight;
+  const { composer, camera, renderer, scene } = init(canvasElement);
+  const helper = new AxesHelper();
+
+  scene.add(helper);
+  scene.add(groups[0]!);
+  renderer.setAnimationLoop(() => {
+    animate(camera, scene, composer);
+  });
+
+  useEventListener("resize", () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.updateProjectionMatrix();
+    camera.aspect = window.innerWidth / window.innerHeight;
+  });
 });
 </script>
 
 <template>
-  <div></div>
+  <canvas ref="canvasElement" class="canvas" />
 </template>

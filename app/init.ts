@@ -26,11 +26,16 @@ export const initComposer = (renderer: WebGLRenderer, scene: Scene, camera: Pers
   return composer;
 }
 
-export const init = () => {
+export const init = (canvasElement: MaybeRefOrGetter<HTMLCanvasElement | undefined>) => {
+  const element = toValue(canvasElement);
+  console.log(element)
+
   const scene = new Scene();
   const renderer = new WebGLRenderer({
     antialias: true,
+    canvas: element
   });
+
   const camera = new PerspectiveCamera(
     80,
     window.innerWidth / window.innerHeight,
@@ -39,9 +44,11 @@ export const init = () => {
   );
 
   const composer = initComposer(renderer, scene, camera);
-
   camera.position.z = 10;
-  document.body.appendChild(renderer.domElement);
+
+  if (!element) {
+    document.body.appendChild(renderer.domElement);
+  }
 
   renderer.setSize(window.innerWidth, window.innerHeight);
   composer.setSize(window.innerWidth, window.innerHeight);
