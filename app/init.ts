@@ -28,7 +28,6 @@ export const initComposer = (renderer: WebGLRenderer, scene: Scene, camera: Pers
 
 export const init = (canvasElement: MaybeRefOrGetter<HTMLCanvasElement | undefined>) => {
   const element = toValue(canvasElement);
-  console.log(element)
 
   const scene = new Scene();
   const renderer = new WebGLRenderer({

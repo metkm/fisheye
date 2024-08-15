@@ -40,8 +40,6 @@ const animate = (
 };
 
 onMounted(async () => {
-  console.log(window.innerHeight)
-
   const { composer, camera, renderer, scene } = init(canvasElement);
   const helper = new AxesHelper();
 
