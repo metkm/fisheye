@@ -3,10 +3,7 @@ import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { getDistortionShaderDefinition } from "./shader/distortion";
-
-const horizontalFov = 140;
-const strength = 1;
-const cylindricalRatio = 2;
+import { horizontalFov, strength, cylindricalRatio } from "./constants";
 
 export const initComposer = (renderer: WebGLRenderer, scene: Scene, camera: PerspectiveCamera) => {
   const effect = new ShaderPass(getDistortionShaderDefinition());
