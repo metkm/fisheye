@@ -32,13 +32,6 @@ export const createImageMesh = async (uri: string) => {
 
 export const images = [
   "https://pbs.twimg.com/media/GUrlgwhXsAASMRE?format=jpg&name=large",
-  "https://pbs.twimg.com/media/GT3pfPDbwAEQycf?format=jpg&name=large",
-  "https://pbs.twimg.com/media/GTrYfJIaQAE-Yrp?format=jpg&name=medium",
-  "https://pbs.twimg.com/media/GRnd-mWXcAAZOhS?format=jpg&name=medium",
-  "https://pbs.twimg.com/media/GQ4V235XIAAzAh7?format=jpg&name=4096x4096",
-  "https://pbs.twimg.com/media/GUnYNYEW8AAaWrY?format=jpg&name=medium",
-  "https://pbs.twimg.com/media/GUXybnmWcAAWhFU?format=jpg&name=large",
-  "https://pbs.twimg.com/media/GSwGPGRasAAgLQ0?format=jpg&name=4096x4096",
   "https://i.scdn.co/image/ab67616d0000b273cda1dde174c38419df93c736",
   "https://i.scdn.co/image/ab67616d0000b273eda9478c39a21e1cdc6609ca",
   "https://i.scdn.co/image/ab67616d0000b273e11fcf0840bb6aa727885229",
